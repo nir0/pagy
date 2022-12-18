@@ -24,7 +24,7 @@ class Pagy
               i18n_key:   'pagy.item_name',
               cycle:      false }
 
-  attr_reader :count, :page, :items, :vars, :pages, :last, :offset, :in, :from, :to, :prev, :next, :params
+  attr_reader :count, :page, :items, :vars, :pages, :last, :offset, :in, :from, :to, :prev, :next, :params, :min_pages
 
   # Merge and validate the options, do some simple arithmetic and set the instance variables
   def initialize(vars)
@@ -103,7 +103,7 @@ class Pagy
 
   # Setup @pages and @last (overridden by the gearbox extra)
   def setup_pages_var
-    @pages = @last = [(@count.to_f / @items).ceil, 1].max
+    @pages = @last = [(@count.to_f / @items).ceil, 1, @min_pages.to_i].max
   end
 
   # Setup @offset based on the :gearbox_items variable
